@@ -1,5 +1,5 @@
-test  te
+test te
 st
-te  s t
+te s t
 
 test
