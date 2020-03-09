@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileUtil {
-    // 传入一个文件路径，返回该文件的字符数
-    public static int getCharsetsCount(String filePath) throws IOException {
+    // "-c"操作：传入一个文件路径，返回该文件的字符数
+    public static int printCharsetsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int charsetsCount = 0;
         String str = null;
@@ -17,11 +17,13 @@ public class FileUtil {
             str = str.replaceAll(" ", "");
             charsetsCount += str.length();
         }
+        fileReader.close();
+        System.out.println("指定文件" + filePath + "的字符数：" + charsetsCount);
         return charsetsCount;
     }
 
-    // 传入一个文件路径，返回该文件的词数
-    public static int getWordsCount(String filePath) throws IOException {
+    // "-w"操作：传入一个文件路径，返回该文件的词数
+    public static int printWordsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int wordsCount = 0;
         String str = null;
@@ -35,11 +37,13 @@ public class FileUtil {
                 }
             }
         }
+        fileReader.close();
+        System.out.println("指定文件" + filePath + "的单词数：" + wordsCount);
         return wordsCount;
     }
 
-    // 传入一个文件路径，返回该文件的行数
-    public static int getLinesCount(String filePath) throws IOException {
+    // "-l"操作：传入一个文件路径，返回该文件的行数
+    public static int printLinesCount(String filePath) throws IOException {
         File file = new File(filePath);
         int linesCount = 0;
         FileReader fileReader = new FileReader(file);
@@ -48,6 +52,51 @@ public class FileUtil {
             linesCount++;
         }
         fileReader.close();
+        System.out.println("指定文件" + filePath + "的行数目：" + linesCount);
         return linesCount;
+    }
+
+    // "-a"操作：传入一个文件路径，输出该文件的代码行数、空行数、注释行数
+
+    /**
+     * 代码行：本行包括多于一个字符的代码
+     * 空行：本行全部是空格或格式控制字符，如果包括代码，则只有不超过一个可显示的字符，例如 "{"
+     * 注释行：本行不是代码行，并且本行包括注释。一个有趣的例子是有些程序员会在单字符后面加注释：
+     * } //注释
+     * 在这种情况下，这一行属于注释行
+     */
+    public static void printCBNLineCounts(String filePath) throws IOException {
+        int codeLineCounts = 0; // 代码行数目
+        int blankLineCounts = 0; // 空白行数目
+        int noteLineCounts = 0; // 注释行数目
+        File file = new File(filePath);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader reader = new BufferedReader(fileReader);
+        String str = null;
+        while ((str = reader.readLine()) != null) {
+            // 去掉空格
+            str = str.replaceAll(" ", "");
+            /*
+                如果包含 "//" 但是注释外的字符多于一个，为代码行
+                如果包含 "//" 而且注释外的字符少于或等于一个，为注释行
+             */
+            if(!str.contains("//")){
+                if(str.length()>1){
+                    codeLineCounts++;
+                }else{
+                    blankLineCounts++;
+                }
+            }else{
+                if(str.substring(0, str.indexOf("//")).length() > 1){
+                    codeLineCounts++;
+                }else{
+                    noteLineCounts++;
+                }
+            }
+        }
+        System.out.println("指定文件" + filePath + "的代码行数目：" + codeLineCounts);
+        System.out.println("指定文件" + filePath + "的空白行数目：" + blankLineCounts);
+        System.out.println("指定文件" + filePath + "的注释行数目：" + noteLineCounts);
+        fileReader.close();
     }
 }

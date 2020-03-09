@@ -18,6 +18,7 @@ public class ParamsUtil {
             case "-c":
             case "-w":
             case "-l":
+            case "-a":
                 return true;
             default:
                 return false;
@@ -33,18 +34,18 @@ public class ParamsUtil {
     // 判断输入的语句是否合法，分三部分进行处理
     public boolean checkInputParams(String input) {
         String[] params = input.split(" ");
-        if(!isExe(params[0])){
-            System.out.println("isExe false with "+params[0]);
+        if (!isExe(params[0])) {
+            System.out.println("isExe false with " + params[0]);
             return false;
         }
-        for(int i=1;i<params.length-1;i++){
-            if(!isOperation(params[i])){
-                System.out.println("isOperation false with "+params[i]);
+        for (int i = 1; i < params.length - 1; i++) {
+            if (!isOperation(params[i])) {
+                System.out.println("isOperation false with " + params[i]);
                 return false;
             }
         }
-        if(!isFileExist(params[params.length-1])){
-            System.out.println("isFileExist false");
+        if (!isFileExist(params[params.length - 1])) {
+            System.out.println("isFileExist false with " + params[params.length - 1]);
             return false;
         }
         return true;

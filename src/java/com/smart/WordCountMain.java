@@ -20,19 +20,19 @@ public class WordCountMain {
             if (paramsUtil.checkInputParams(input)) {
                 // 获得用户输入的参数
                 String params[] = input.split(" ");
-                for(int i=1;i<params.length-1;i++){
+                for (int i = 1; i < params.length - 1; i++) {
                     switch (params[i]) {
                         case "-c":
-                            System.out.println("指定文件" + params[i] + "的字符数：" +
-                                    FileUtil.getCharsetsCount(params[params.length-1]));
+                            FileUtil.printCharsetsCount(params[params.length - 1]);
                             break;
                         case "-w":
-                            System.out.println("指定文件" + params[i] + "的单词数：" +
-                                    FileUtil.getWordsCount(params[params.length-1]));
+                            FileUtil.printWordsCount(params[params.length - 1]);
                             break;
                         case "-l":
-                            System.out.println("指定文件" + params[i] + "的行数目：" +
-                                    FileUtil.getLinesCount(params[params.length-1]));
+                            FileUtil.printLinesCount(params[params.length - 1]);
+                            break;
+                        case "-a":
+                            FileUtil.printCBNLineCounts(params[params.length - 1]);
                             break;
                     }
                 }
@@ -44,17 +44,17 @@ public class WordCountMain {
 //        String test1FilePath = "testFile/test1.txt";
 //        String test2FilePath = "testFile/test2.txt";
 //        System.out.println("====================================================");
-//        System.out.println("空白文件blank.txt字符数：" + FileUtil.getCharsetsCount(blankFilePath));
-//        System.out.println("空白文件blank.txt单词数：" + FileUtil.getWordsCount(blankFilePath));
-//        System.out.println("空白文件blank.txt行数：" + FileUtil.getLinesCount(blankFilePath));
+//        FileUtil.printCharsetsCount(blankFilePath);
+//        FileUtil.printWordsCount(blankFilePath);
+//        FileUtil.printLinesCount(blankFilePath);
 //        System.out.println("====================================================");
-//        System.out.println("文件test1.txt字符数：" + FileUtil.getCharsetsCount(test1FilePath));
-//        System.out.println("文件test1.txt单词数：" + FileUtil.getWordsCount(test1FilePath));
-//        System.out.println("文件test1.txt行数：" + FileUtil.getLinesCount(test1FilePath));
+//        FileUtil.printCharsetsCount(test1FilePath);
+//        FileUtil.getWordsCount(test1FilePath);
+//        FileUtil.printLinesCount(test1FilePath);
 //        System.out.println("====================================================");
-//        System.out.println("文件test2.txt字符数：" + FileUtil.getCharsetsCount(test2FilePath));
-//        System.out.println("文件test2.txt单词数：" + FileUtil.getWordsCount(test2FilePath));
-//        System.out.println("文件test2.txt行数：" + FileUtil.getLinesCount(test2FilePath));
+//        FileUtil.getCharsetsCount(test2FilePath);
+//        FileUtil.getWordsCount(test2FilePath);
+//        FileUtil.getLinesCount(test2FilePath);
     }
 
 
@@ -66,6 +66,7 @@ public class WordCountMain {
         System.out.println("-c filePath =====> [统计指定文件的字符数]");
         System.out.println("-w filePath =====> [统计指定文件的单词数]");
         System.out.println("-l filePath =====> [统计指定文件的行数目]");
+        System.out.println("-a filePath =====> [统计指定文件的代码行数目、空白行数目、注释行数目]");
         System.out.println("输入示例：wc.exe -c test1.txt =====> 效果：输出test1.txt的字符数");
         System.out.println("请输入合法的操作：");
     }
