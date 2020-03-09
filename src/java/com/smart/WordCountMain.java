@@ -23,16 +23,24 @@ public class WordCountMain {
                 for (int i = 1; i < params.length - 1; i++) {
                     switch (params[i]) {
                         case "-c":
-                            FileUtil.printCharsetsCount(params[params.length - 1]);
+                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                                FileUtil.printCharsetsCount(f.getPath());
+                            }
                             break;
                         case "-w":
-                            FileUtil.printWordsCount(params[params.length - 1]);
+                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                                FileUtil.printWordsCount(f.getPath());
+                            }
                             break;
                         case "-l":
-                            FileUtil.printLinesCount(params[params.length - 1]);
+                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                                FileUtil.printLinesCount(f.getPath());
+                            }
                             break;
                         case "-a":
-                            FileUtil.printCBNLineCounts(params[params.length - 1]);
+                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                                FileUtil.printCBNLineCounts(f.getPath());
+                            }
                             break;
                     }
                 }
