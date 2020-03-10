@@ -6,10 +6,7 @@ public class ParamsUtil {
 
     // 判断第一个参数是否为合法的"wc.exe"
     private boolean isExe(String input) {
-        if (input.equals("wc.exe")) {
-            return true;
-        }
-        return false;
+        return input.equals("wc.exe");
     }
 
     // 判断输入的操作参数是否合法
@@ -19,6 +16,7 @@ public class ParamsUtil {
             case "-w":
             case "-l":
             case "-a":
+            case "-s":
                 return true;
             default:
                 return false;
@@ -38,14 +36,15 @@ public class ParamsUtil {
             System.out.println("isExe false with " + params[0]);
             return false;
         }
-        for (int i = 1; i < params.length - 1; i++) {
+        int filePathIndex = input.contains("-s") ? params.length - 2 : params.length - 1;
+        for (int i = 1; i < filePathIndex; i++) {
             if (!isOperation(params[i])) {
                 System.out.println("isOperation false with " + params[i]);
                 return false;
             }
         }
-        if (!isFileExist(params[params.length - 1])) {
-            System.out.println("isFileExist false with " + params[params.length - 1]);
+        if (!isFileExist(params[filePathIndex])) {
+            System.out.println("isFileExist false with " + params[filePathIndex]);
             return false;
         }
         return true;

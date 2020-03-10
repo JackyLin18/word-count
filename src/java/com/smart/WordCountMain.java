@@ -4,6 +4,7 @@ import com.smart.utils.FileUtil;
 import com.smart.utils.ParamsUtil;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class WordCountMain {
     // 程序主入口
@@ -17,52 +18,59 @@ public class WordCountMain {
         ParamsUtil paramsUtil = new ParamsUtil();
         while ((input = reader.readLine()) != null) {
             // 判断用户的输入是否合法，如果合法，按用户要求的操作执行，如果不合法，要求用户重新输入
+            // 对输入进行 "添加通配符" 的处理
+            if (!input.contains("-s")) {
+                // 如果没有输入"-s"，自动添加默认的通配符
+                input = input.concat(" .*");
+            } else {
+                // 如果输入了"-s"，但没有输入通配符，也添加默认的通配符
+                String[] params = input.split(" ");
+                if (!params[params.length - 1].contains(".")) {
+                    input = input.concat(" .*");
+                }
+            }
             if (paramsUtil.checkInputParams(input)) {
-                // 获得用户输入的参数
-                String params[] = input.split(" ");
-                for (int i = 1; i < params.length - 1; i++) {
+                // 获得用户输入的参数数组
+                String[] params = input.split(" ");
+                int paramsLength = params.length;
+                for (int i = 1; i < paramsLength; i++) {
+                    // FileUtil#getFileList()第一个参数为指定的文件路径，第二个参数为指定文件的通配符
                     switch (params[i]) {
                         case "-c":
-                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                            // 输出指定文件的字符数
+                            for (File f : FileUtil.getFileList(params[paramsLength - 2],
+                                    params[paramsLength - 1])) {
                                 FileUtil.printCharsetsCount(f.getPath());
                             }
                             break;
                         case "-w":
-                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                            // 输出指定文件的单词数
+                            for (File f : FileUtil.getFileList(params[paramsLength - 2],
+                                    params[paramsLength - 1])) {
                                 FileUtil.printWordsCount(f.getPath());
                             }
                             break;
                         case "-l":
-                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                            // 输出指定文件的行数
+                            for (File f : FileUtil.getFileList(params[paramsLength - 2],
+                                    params[paramsLength - 1])) {
                                 FileUtil.printLinesCount(f.getPath());
                             }
                             break;
                         case "-a":
-                            for(File f:FileUtil.getFileList(params[params.length - 1])){
+                            // 输出指定文件的代码行数、空白行数、注释行数
+                            for (File f : FileUtil.getFileList(params[paramsLength - 2],
+                                    params[paramsLength - 1])) {
                                 FileUtil.printCBNLineCounts(f.getPath());
                             }
+                            break;
+                        default:
                             break;
                     }
                 }
             }
             show();
         }
-        // 测试空白文件
-//        String blankFilePath = "testFile/blank.txt";
-//        String test1FilePath = "testFile/test1.txt";
-//        String test2FilePath = "testFile/test2.txt";
-//        System.out.println("====================================================");
-//        FileUtil.printCharsetsCount(blankFilePath);
-//        FileUtil.printWordsCount(blankFilePath);
-//        FileUtil.printLinesCount(blankFilePath);
-//        System.out.println("====================================================");
-//        FileUtil.printCharsetsCount(test1FilePath);
-//        FileUtil.getWordsCount(test1FilePath);
-//        FileUtil.printLinesCount(test1FilePath);
-//        System.out.println("====================================================");
-//        FileUtil.getCharsetsCount(test2FilePath);
-//        FileUtil.getWordsCount(test2FilePath);
-//        FileUtil.getLinesCount(test2FilePath);
     }
 
 
