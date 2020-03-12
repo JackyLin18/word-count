@@ -17,6 +17,7 @@ public class ParamsUtil {
             case "-l":
             case "-a":
             case "-s":
+            case "-frame":
                 return true;
             default:
                 return false;

@@ -1,14 +1,16 @@
 package com.smart;
 
+import com.smart.gui.FileFrame;
 import com.smart.utils.FileUtil;
 import com.smart.utils.ParamsUtil;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Arrays;
 
 public class WordCountMain {
     // 程序主入口
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         // 提供给用户菜单
         show();
         // 读取用户输入的操作
@@ -17,6 +19,9 @@ public class WordCountMain {
         // 创建一个判断输入参数的类实例
         ParamsUtil paramsUtil = new ParamsUtil();
         while ((input = reader.readLine()) != null) {
+            if(input.contains("-frame")){
+                new FileFrame();
+            }
             // 判断用户的输入是否合法，如果合法，按用户要求的操作执行，如果不合法，要求用户重新输入
             // 对输入进行 "添加通配符" 的处理
             if (!input.contains("-s")) {
@@ -83,7 +88,9 @@ public class WordCountMain {
         System.out.println("-w filePath =====> [统计指定文件的单词数]");
         System.out.println("-l filePath =====> [统计指定文件的行数目]");
         System.out.println("-a filePath =====> [统计指定文件的代码行数目、空白行数目、注释行数目]");
-        System.out.println("输入示例：wc.exe -c test1.txt =====> 效果：输出test1.txt的字符数");
+        System.out.println("-s filePath xx.xx =====> [统计指定文件夹中符合通配符的文件的相关数据]");
+        System.out.println("-frame =====> [调出图形界面]");
+        System.out.println("输入示例：wc.exe -c -w -l -a -s testFile .txt");
         System.out.println("请输入合法的操作：");
     }
 }

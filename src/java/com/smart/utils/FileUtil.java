@@ -61,7 +61,7 @@ public class FileUtil {
     }
 
     // "-c"操作：传入一个文件路径，返回该文件的字符数
-    public static void printCharsetsCount(String filePath) throws IOException {
+    public static String printCharsetsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int charsetsCount = 0;
         String str = null;
@@ -75,11 +75,13 @@ public class FileUtil {
         }
         fileReader.close();
         // 输出指定文件文件名及其字符数
-        System.out.println("指定文件" + filePath + "的字符数：" + charsetsCount);
+        String message = "指定文件" + filePath + "的字符数：" + charsetsCount;
+        System.out.println(message);
+        return message;
     }
 
     // "-w"操作：传入一个文件路径，返回该文件的词数
-    public static void printWordsCount(String filePath) throws IOException {
+    public static String printWordsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int wordsCount = 0;
         String str = null;
@@ -97,11 +99,13 @@ public class FileUtil {
         }
         fileReader.close();
         // 输出指定文件文件名及其单词数
-        System.out.println("指定文件" + filePath + "的单词数：" + wordsCount);
+        String message = "指定文件" + filePath + "的单词数：" + wordsCount;
+        System.out.println(message);
+        return message;
     }
 
     // "-l"操作：传入一个文件路径，返回该文件的行数
-    public static void printLinesCount(String filePath) throws IOException {
+    public static String printLinesCount(String filePath) throws IOException {
         File file = new File(filePath);
         int linesCount = 0;
         // 装饰模式，使其获得多功能
@@ -113,7 +117,9 @@ public class FileUtil {
         }
         fileReader.close();
         // 输出指定文件文件名及其行数目
-        System.out.println("指定文件" + filePath + "的行数目：" + linesCount);
+        String message="指定文件" + filePath + "的行数目：" + linesCount;
+        System.out.println(message);
+        return message;
     }
 
     // "-a"操作：传入一个文件路径，输出该文件的代码行数、空行数、注释行数
@@ -125,7 +131,7 @@ public class FileUtil {
      * } //注释
      * 在这种情况下，这一行属于注释行
      */
-    public static void printCBNLineCounts(String filePath) throws IOException {
+    public static List<String> printCBNLineCounts(String filePath) throws IOException {
         int codeLineCounts = 0; // 代码行数目
         int blankLineCounts = 0; // 空白行数目
         int noteLineCounts = 0; // 注释行数目
@@ -156,9 +162,14 @@ public class FileUtil {
             }
         }
         // 输出指定文件文件名及其代码行数、空白行数、注释行数
+        List<String> messages = new ArrayList<>();
+        messages.add("指定文件" + filePath + "的代码行数目：" + codeLineCounts+"\n");
+        messages.add("指定文件" + filePath + "的空白行数目：" + blankLineCounts+"\n");
+        messages.add("指定文件" + filePath + "的注释行数目：" + noteLineCounts+"\n");
         System.out.println("指定文件" + filePath + "的代码行数目：" + codeLineCounts);
         System.out.println("指定文件" + filePath + "的空白行数目：" + blankLineCounts);
         System.out.println("指定文件" + filePath + "的注释行数目：" + noteLineCounts);
         fileReader.close();
+        return messages;
     }
 }
