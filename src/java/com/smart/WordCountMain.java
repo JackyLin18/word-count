@@ -6,7 +6,6 @@ import com.smart.utils.ParamsUtil;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.Arrays;
 
 public class WordCountMain {
     // 程序主入口
@@ -45,28 +44,30 @@ public class WordCountMain {
                             // 输出指定文件的字符数
                             for (File f : FileUtil.getFileList(params[paramsLength - 2],
                                     params[paramsLength - 1])) {
-                                FileUtil.printCharsetsCount(f.getPath());
+                                System.out.println(FileUtil.getCharsetsCount(f.getPath()));
                             }
                             break;
                         case "-w":
                             // 输出指定文件的单词数
                             for (File f : FileUtil.getFileList(params[paramsLength - 2],
                                     params[paramsLength - 1])) {
-                                FileUtil.printWordsCount(f.getPath());
+                                System.out.println(FileUtil.getWordsCount(f.getPath()));
                             }
                             break;
                         case "-l":
                             // 输出指定文件的行数
                             for (File f : FileUtil.getFileList(params[paramsLength - 2],
                                     params[paramsLength - 1])) {
-                                FileUtil.printLinesCount(f.getPath());
+                                System.out.println(FileUtil.getLinesCount(f.getPath()));
                             }
                             break;
                         case "-a":
                             // 输出指定文件的代码行数、空白行数、注释行数
                             for (File f : FileUtil.getFileList(params[paramsLength - 2],
                                     params[paramsLength - 1])) {
-                                FileUtil.printCBNLineCounts(f.getPath());
+                                for(String message:FileUtil.getCBNLinesCount(f.getPath())){
+                                    System.out.print(message);
+                                }
                             }
                             break;
                         default:
@@ -74,13 +75,14 @@ public class WordCountMain {
                     }
                 }
             }
+            // 再次显示菜单提示用户输入
             show();
         }
     }
 
 
     /**
-     * 提供给用户的GUI界面，如果用户输入不合法，重复提示
+     * 提供给用户的菜单界面，如果用户输入不合法，重复提示
      */
     public static void show() {
         System.out.println("Word-Count程序可使用的参数：");

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FileUtil {
 
     // 根据传入的路径，如果表示的是一个文件夹，返回该文件夹下的所有符合通配符的子文件
-    public static List<File> getFileList(String filePath,String consistent) {
+    public static List<File> getFileList(String filePath, String consistent) {
         File file = new File(filePath);
         // 存放遍历过程中的文件夹
         LinkedList<File> temp_fileList = new LinkedList<>();
@@ -23,11 +23,11 @@ public class FileUtil {
         // 如果该文件不是文件夹，将其放置fileList中并返回
         if (!file.isDirectory()) {
             // 如果通配符为默认的 ".*" 将所有文件加入fileList
-            if(consistent.equals(".*")){
+            if (consistent.equals(".*")) {
                 fileList.add(file);
-            }else{
+            } else {
                 // 如果文件与指定的格式相符，将其加入返回的fileList
-                if(filePath.endsWith(consistent)){
+                if (filePath.endsWith(consistent)) {
                     fileList.add(file);
                 }
             }
@@ -46,11 +46,11 @@ public class FileUtil {
                     temp_fileList.add(f);
                 } else {
                     // 如果通配符为默认的 ".*" 将所有文件加入fileList
-                    if(consistent.equals(".*")){
+                    if (consistent.equals(".*")) {
                         fileList.add(f);
-                    }else{
+                    } else {
                         // 如果文件与指定的格式相符，将其加入返回的fileList
-                        if(f.getName().endsWith(consistent)){
+                        if (f.getName().endsWith(consistent)) {
                             fileList.add(f);
                         }
                     }
@@ -61,7 +61,7 @@ public class FileUtil {
     }
 
     // "-c"操作：传入一个文件路径，返回该文件的字符数
-    public static String printCharsetsCount(String filePath) throws IOException {
+    public static String getCharsetsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int charsetsCount = 0;
         String str = null;
@@ -74,14 +74,12 @@ public class FileUtil {
             charsetsCount += str.length();
         }
         fileReader.close();
-        // 输出指定文件文件名及其字符数
-        String message = "指定文件" + filePath + "的字符数：" + charsetsCount;
-        System.out.println(message);
-        return message;
+        // 返回指定文件文件名及其字符数
+        return "指定文件" + filePath + "的字符数：" + charsetsCount;
     }
 
     // "-w"操作：传入一个文件路径，返回该文件的词数
-    public static String printWordsCount(String filePath) throws IOException {
+    public static String getWordsCount(String filePath) throws IOException {
         File file = new File(filePath);
         int wordsCount = 0;
         String str = null;
@@ -98,14 +96,12 @@ public class FileUtil {
             }
         }
         fileReader.close();
-        // 输出指定文件文件名及其单词数
-        String message = "指定文件" + filePath + "的单词数：" + wordsCount;
-        System.out.println(message);
-        return message;
+        // 返回指定文件文件名及其单词数
+        return "指定文件" + filePath + "的单词数：" + wordsCount;
     }
 
     // "-l"操作：传入一个文件路径，返回该文件的行数
-    public static String printLinesCount(String filePath) throws IOException {
+    public static String getLinesCount(String filePath) throws IOException {
         File file = new File(filePath);
         int linesCount = 0;
         // 装饰模式，使其获得多功能
@@ -116,10 +112,8 @@ public class FileUtil {
             linesCount++;
         }
         fileReader.close();
-        // 输出指定文件文件名及其行数目
-        String message="指定文件" + filePath + "的行数目：" + linesCount;
-        System.out.println(message);
-        return message;
+        // 返回指定文件文件名及其行数目
+        return "指定文件" + filePath + "的行数目：" + linesCount;
     }
 
     // "-a"操作：传入一个文件路径，输出该文件的代码行数、空行数、注释行数
@@ -131,7 +125,7 @@ public class FileUtil {
      * } //注释
      * 在这种情况下，这一行属于注释行
      */
-    public static List<String> printCBNLineCounts(String filePath) throws IOException {
+    public static List<String> getCBNLinesCount(String filePath) throws IOException {
         int codeLineCounts = 0; // 代码行数目
         int blankLineCounts = 0; // 空白行数目
         int noteLineCounts = 0; // 注释行数目
@@ -161,14 +155,11 @@ public class FileUtil {
                 }
             }
         }
-        // 输出指定文件文件名及其代码行数、空白行数、注释行数
+        // 返回指定文件文件名及其代码行数、空白行数、注释行数
         List<String> messages = new ArrayList<>();
-        messages.add("指定文件" + filePath + "的代码行数目：" + codeLineCounts+"\n");
-        messages.add("指定文件" + filePath + "的空白行数目：" + blankLineCounts+"\n");
-        messages.add("指定文件" + filePath + "的注释行数目：" + noteLineCounts+"\n");
-        System.out.println("指定文件" + filePath + "的代码行数目：" + codeLineCounts);
-        System.out.println("指定文件" + filePath + "的空白行数目：" + blankLineCounts);
-        System.out.println("指定文件" + filePath + "的注释行数目：" + noteLineCounts);
+        messages.add("指定文件" + filePath + "的代码行数目：" + codeLineCounts + "\n");
+        messages.add("指定文件" + filePath + "的空白行数目：" + blankLineCounts + "\n");
+        messages.add("指定文件" + filePath + "的注释行数目：" + noteLineCounts + "\n");
         fileReader.close();
         return messages;
     }

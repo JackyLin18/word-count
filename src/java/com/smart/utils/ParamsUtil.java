@@ -37,7 +37,7 @@ public class ParamsUtil {
             System.out.println("isExe false with " + params[0]);
             return false;
         }
-        int filePathIndex = input.contains("-s") ? params.length - 2 : params.length - 1;
+        int filePathIndex = params.length - 2;
         for (int i = 1; i < filePathIndex; i++) {
             if (!isOperation(params[i])) {
                 System.out.println("isOperation false with " + params[i]);
